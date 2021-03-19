@@ -5,8 +5,6 @@
   register: log2ram_bin
   tags: log2ram-uninstall
 
-- debug: var=log2ram_send_mail
-
 - include_tasks: uninstall.yml
   when: log2ram_bin.stat.exists
   tags: never, log2ram-uninstall
