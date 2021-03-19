@@ -1,0 +1,23 @@
+---
+- name: Check log2ram installation
+  stat:
+    path: /usr/local/bin/log2ram
+  register: log2ram_bin
+  tags: log2ram-uninstall
+
+- debug: var=log2ram_send_mail
+
+- include_tasks: uninstall.yml
+  when: log2ram_bin.stat.exists
+  tags: never, log2ram-uninstall
+
+- include_tasks: install.yml
+  when: not log2ram_bin.stat.exists
+
+- name: Generate configuration file
+  template:
+    src: log2ram.conf.j2
+    dest: /etc/log2ram.conf
+    owner: root
+    mode: '0644'
+  notify: Restart log2ram

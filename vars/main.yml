@@ -1,0 +1,11 @@
+log2ram_size_int: "{{ ((log2ram_size[:-1] | float) * log2ram_compression_ratio[log2ram_compression_algorithm]) | int }}"
+log2ram_size_suffix: "{{ log2ram_size[-1] }}"
+log2ram_log_disk_size: "{{ log2ram_size_int }}{{ log2ram_size_suffix }}"
+
+log2ram_compression_ratio:
+  zstd: 2.9
+  zlib: 2.7
+  brotli: 2.7
+  lzo: 2.1
+  lz4: 2.1
+  snappy: 2.0
