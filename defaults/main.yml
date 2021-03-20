@@ -2,6 +2,6 @@ log2ram_version: '1.6.0'
 
 log2ram_size: '40M'
 log2ram_send_mail: yes
-log2ram_path_disk: '/var/log'
+log2ram_path_disk: ['/var/log']
 log2ram_zram_enabled: false
 log2ram_compression_algorithm: 'lz4'

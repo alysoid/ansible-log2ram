@@ -15,7 +15,7 @@ MAIL={{ log2ram_send_mail | lower }}
 # Variable for folders to put in RAM. Specify the real folder `/path/folder` with no final `/`.
 # `/path/hdd.folder` will be automatically created. Multiple path can be separeted by `;`.
 # example : PATH_DISK="/var/log;/home/test/FolderInRam"
-PATH_DISK='{{ log2ram_path_disk }}'
+PATH_DISK='{{ log2ram_path_disk | join(';') }}'
 
 #
 # Zram configuration

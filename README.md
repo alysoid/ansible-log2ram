@@ -4,14 +4,14 @@
 
 ## Role variables
 
-| Variable                        | Default      | Info
-| ------------------------------- | ------------ | --------------------------
-| `log2ram_version`               | `'1.6.0'`    | Version to install (see: [GitHub releases](https://github.com/azlux/log2ram/releases)).
-| `log2ram_size`                  | `'40M'`      | Size the log folder will reserve into the RAM.
-| `log2ram_send_mail`             | `yes`        | Use system mail to get notified on errors.
-| `log2ram_path_disk`             | `'/var/log'` | Semicolon separated list of folders to put in RAM.
-| `log2ram_zram_enabled`          | `false`      | Type of device to use. `true` for zram, `false` for default tmpfs.
-| `log2ram_compression_algorithm` | `'lz4'`      | When zram is enabled, specify the compression algorithm to use.
+| Variable                        | Default        | Info
+| ------------------------------- | -------------- | --------------------------
+| `log2ram_version`               | `'1.6.0'`      | Version to install (see: [GitHub releases](https://github.com/azlux/log2ram/releases)).
+| `log2ram_size`                  | `'40M'`        | Size the log folder will reserve into the RAM.
+| `log2ram_send_mail`             | `yes`          | Use system mail to get notified on errors.
+| `log2ram_path_disk`             | `['/var/log']` | List of folders to put in RAM.
+| `log2ram_zram_enabled`          | `false`        | Type of device to use. `true` for zram, `false` for default tmpfs.
+| `log2ram_compression_algorithm` | `'lz4'`        | When zram is enabled, specify the compression algorithm to use.
 
 ---
 
@@ -27,11 +27,17 @@ When `yes`, uses the system `mail` binary to notify the user about errors with a
 
 ### `log2ram_path_disk`
 
-Folders to put in RAM. Always specify an existing folder `/path/folder` without using the final `/`.
-
-Separate paths using the semicolon: `';'` character. E.g.: `log2ram_path_disk: '/var/log;/home/user/RamFolder'`
+List of folders to store in RAM. Always specify an existing folder `/path/folder` without using the final `/`.
 
 The `/path/hdd.folder` will be automatically created.
+
+Example with multiple folders:
+
+```yaml
+log2ram_path_disk:
+  - '/var/log'
+  - '/home/user/RamFolder'
+```
 
 ### `log2ram_compression_algorithm`
 
