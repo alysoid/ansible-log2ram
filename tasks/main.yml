@@ -18,4 +18,6 @@
     dest: /etc/log2ram.conf
     owner: root
     mode: '0644'
-  notify: Restart log2ram
+  notify:
+    - Clean systemd journal
+    - Restart log2ram
