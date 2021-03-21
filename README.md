@@ -12,6 +12,7 @@
 | `log2ram_path_disk`             | `['/var/log']` | List of folders to put in RAM.
 | `log2ram_zram_enabled`          | `false`        | Type of device to use. `true` for zram, `false` for default tmpfs.
 | `log2ram_compression_algorithm` | `'lz4'`        | When zram is enabled, specify the compression algorithm to use.
+| `log2ram_journal_cleanup`       | `yes`          | Clean oldest systemd journals before re/start log2ram service.
 
 ---
 
@@ -51,3 +52,7 @@ It's a chose compression algorithm listed in `/proc/crypto`. The fastest and lig
 | `lzo`1x 2.10 -1     | 2.106 | 690 MB/s    | 830 MB/s    |
 | `lz4` 1.9.2         | 2.101 | 740 MB/s    | 4530 MB/s   |
 | `snappy` 1.1.8      | 2.073 | 560 MB/s    | 1790 MB/s   |
+
+### `log2ram_journal_cleanup`
+
+When is `yes` executes the command: `journalctl --vacuum-size=` targeting the chosen `log2ram_size` - 5%. This reduces the `/var/log` folder size by removing the oldest systemd journals before re/start log2ram service. This should avoid most of the errors due to a too big existing folder.

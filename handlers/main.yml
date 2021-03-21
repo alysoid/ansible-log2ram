@@ -1,6 +1,7 @@
 ---
 - name: Clean systemd journal
   command: journalctl --vacuum-size={{ ((log2ram_size[:-1] | float) * 0.95) | int }}{{ log2ram_size_suffix }}
+  when: log2ram_journal_cleanup
 
 - name: Restart log2ram
   service:
