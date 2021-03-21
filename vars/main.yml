@@ -1,8 +1,10 @@
-log2ram_size_int: "{{ ((log2ram_size[:-1] | float) * log2ram_compression_ratio[log2ram_compression_algorithm]) | int }}"
+log2ram_size_int: "{{ (log2ram_size[:-1] | float * log2ram_compression_ratio | float ) | int }}"
 log2ram_size_suffix: "{{ log2ram_size[-1] }}"
 log2ram_log_disk_size: "{{ log2ram_size_int }}{{ log2ram_size_suffix }}"
 
-log2ram_compression_ratio:
+log2ram_compression_ratio: "{{ compression_ratios[log2ram_compression_algorithm] }}"
+
+compression_ratios:
   zstd: 2.9
   zlib: 2.7
   brotli: 2.7
