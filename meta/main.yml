@@ -1,0 +1,37 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Andrea Brandi
+  description: Create mount points in RAM for log directories to decrease write cycles on removable drives.
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+  - name: ArchLinux
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - jessie
+    - stretch
+    - buster
+  - name: EL
+    versions:
+    - 7
+    - 8
+  - name: Fedora
+    versions:
+    - 30
+    - 31
+    - 32
+  - name: Ubuntu
+    versions:
+    - xenial
+    - bionic
+    - focal
+  galaxy_tags:
+    - system
+    - mount
+    - log
+    - ram
+    - zram
