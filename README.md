@@ -1,6 +1,6 @@
 # [Catena](https://github.com/alysoid/catena) - Log2ram Ansible Role
 
-[Log2Ram](https://github.com/azlux/log2ram) helps not to stress a drive (like a SD Card on RaspberryPi) with continuous log writing. The script creates a `/var/log` mount point in RAM, so any writing to the `/var/log` folder will not be actually written on disk but directly on RAM. It works great in combination with [systemd-swap](https://github.com/Nefelim4ag/systemd-swap) and [zram](https://www.kernel.org/doc/Documentation/blockdev/zram.txt).
+[Log2Ram](https://github.com/azlux/log2ram) helps not to stress a drive (like a SD Card on RaspberryPi) with continuous log writing. The script creates a `/var/log` mount point in RAM, so any writing to the `/var/log` folder will not be actually written on disk but directly on RAM. It works great in combination with Catena [systemd-swap](https://github.com/alysoid/ansible-systemd-swap) and Catena [systemd-zram](https://github.com/alysoid/ansible-systemd-zram) roles.
 
 ## Role variables
 
