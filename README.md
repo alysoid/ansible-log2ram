@@ -68,6 +68,15 @@ It's a chose compression algorithm listed in `/proc/crypto`. The fastest and lig
 | `lz4` 1.9.2       | 2.101 | 740 MB/s    | 4530 MB/s   |
 | `snappy` 1.1.8    | 2.073 | 560 MB/s    | 1790 MB/s   |
 
+### `log2ram_version`
+
+```yaml
+# Defaults
+log2ram_version: "{{ log2ram.version | default('1.6.1') }}"
+```
+
+Version of Log2Ram to install, see [GitHub releases](https://github.com/azlux/log2ram/releases). The version can also be set in `log2ram.version` but this variable has the precedence.
+
 ### `log2ram_journal_cleanup`
 
 When is `true` executes the command: `journalctl --vacuum-size=` targeting the chosen `log2ram_size` - 5%. This reduces the `/var/log` folder size by removing the oldest systemd journals before re/start log2ram service. This should avoid most of the errors due to a too big existing folder.

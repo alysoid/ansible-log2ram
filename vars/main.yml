@@ -1,6 +1,6 @@
 ---
 # Remote source to get required files
-log2ram_remote_source: "https://github.com/azlux/log2ram/raw/{{ log2ram.version }}"
+log2ram_remote_source: "https://github.com/azlux/log2ram/raw/{{ log2ram_version }}"
 
 # Compression ratios for each compression algorithm available
 log2ram_compression_ratios:

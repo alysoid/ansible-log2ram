@@ -1,8 +1,5 @@
 ---
 log2ram:
-  # Version to install (GitHub tags)
-  # https://github.com/azlux/log2ram/releases
-  version: "1.6.1"
   # Size the log folder will reserve into the RAM
   size: 40M
   # When `true` use rsync for log syncing, when `false` use cp
@@ -15,6 +12,10 @@ log2ram:
   zram: true
   # Compression algorithm when zram is enabled
   compression: lz4
+
+# Version to install (GitHub tags)
+# https://github.com/azlux/log2ram/releases
+log2ram_version: "{{ log2ram.version | default('1.6.1') }}"
 
 # Clean oldest systemd journals before re/start log2ram service
 log2ram_journal_cleanup: false
