@@ -6,13 +6,13 @@
 
 | Variable                        | Default        | Info                                                                                    |
 | ------------------------------- | -------------- | --------------------------------------------------------------------------------------- |
-| `log2ram_version`               | `'1.6.0'`      | Version to install (see: [GitHub releases](https://github.com/azlux/log2ram/releases)). |
-| `log2ram_size`                  | `'40M'`        | Size the log folder will reserve into the RAM.                                          |
-| `log2ram_send_mail`             | `yes`          | Use system mail to get notified on errors.                                              |
-| `log2ram_path_disk`             | `['/var/log']` | List of folders to put in RAM.                                                          |
+| `log2ram_version`               | `1.6.0`        | Version to install (see: [GitHub releases](https://github.com/azlux/log2ram/releases)). |
+| `log2ram_size`                  | `40M`          | Size the log folder will reserve into the RAM.                                          |
+| `log2ram_send_mail`             | `false`        | Use system mail to get notified on errors.                                              |
+| `log2ram_path_disk`             | `["/var/log"]` | List of folders to put in RAM.                                                          |
 | `log2ram_zram_enabled`          | `false`        | Type of device to use. `true` for zram, `false` for default tmpfs.                      |
-| `log2ram_compression_algorithm` | `'lz4'`        | When zram is enabled, specify the compression algorithm to use.                         |
-| `log2ram_journal_cleanup`       | `yes`          | Clean oldest systemd journals before re/start log2ram service.                          |
+| `log2ram_compression_algorithm` | `lz4`          | When zram is enabled, specify the compression algorithm to use.                         |
+| `log2ram_journal_cleanup`       | `false`        | Clean oldest systemd journals before re/start log2ram service.                          |
 
 ### `log2ram_size`
 
