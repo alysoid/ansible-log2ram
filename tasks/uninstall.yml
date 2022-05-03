@@ -1,28 +1,22 @@
 ---
-- name: Remove log2ram service
+- name: Stop systemd log2ram services
   ansible.builtin.service:
-    name: log2ram
+    name: "{{ item }}"
     state: stopped
     enabled: no
-  tags: log2ram-uninstall
+  loop: "{{ log2ram_systemd_services }}"
+  tags: log2ram_uninstall
 
-- name: Remove log2ram-daily timer
-  ansible.builtin.systemd:
-    name: log2ram-daily.timer
-    state: stopped
-    enabled: no
-  tags: log2ram-uninstall
+- name: Remove systemd log2ram units
+  ansible.builtin.file:
+    path: "/etc/systemd/system/{{ item }}"
+    state: absent
+  loop: "{{ log2ram_systemd_services }}"
+  tags: log2ram_uninstall
 
-- name: Remove files and directories
-  ansible.builtin.shell: |
-    rm -rf /etc/systemd/system/log2ram*
-    rm /usr/local/bin/log2ram
-    rm /etc/log2ram.conf
-    rm -f /etc/logrotate.d/log2ram
-    if [ -d /var/hdd.log ]; then
-      rm -r /var/hdd.log
-    fi
-    rm /usr/local/bin/uninstall-log2ram.sh
-  args:
-    warn: no
-  tags: log2ram-uninstall
+- name: Remove log2ram files
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ log2ram_system_files }}"
+  tags: log2ram_uninstall

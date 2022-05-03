@@ -4,17 +4,15 @@
 
 ## Role variables
 
-| Variable                        | Default        | Info
-| ------------------------------- | -------------- | --------------------------
-| `log2ram_version`               | `'1.6.0'`      | Version to install (see: [GitHub releases](https://github.com/azlux/log2ram/releases)).
-| `log2ram_size`                  | `'40M'`        | Size the log folder will reserve into the RAM.
-| `log2ram_send_mail`             | `yes`          | Use system mail to get notified on errors.
-| `log2ram_path_disk`             | `['/var/log']` | List of folders to put in RAM.
-| `log2ram_zram_enabled`          | `false`        | Type of device to use. `true` for zram, `false` for default tmpfs.
-| `log2ram_compression_algorithm` | `'lz4'`        | When zram is enabled, specify the compression algorithm to use.
-| `log2ram_journal_cleanup`       | `yes`          | Clean oldest systemd journals before re/start log2ram service.
-
----
+| Variable                        | Default        | Info                                                                                    |
+| ------------------------------- | -------------- | --------------------------------------------------------------------------------------- |
+| `log2ram_version`               | `'1.6.0'`      | Version to install (see: [GitHub releases](https://github.com/azlux/log2ram/releases)). |
+| `log2ram_size`                  | `'40M'`        | Size the log folder will reserve into the RAM.                                          |
+| `log2ram_send_mail`             | `yes`          | Use system mail to get notified on errors.                                              |
+| `log2ram_path_disk`             | `['/var/log']` | List of folders to put in RAM.                                                          |
+| `log2ram_zram_enabled`          | `false`        | Type of device to use. `true` for zram, `false` for default tmpfs.                      |
+| `log2ram_compression_algorithm` | `'lz4'`        | When zram is enabled, specify the compression algorithm to use.                         |
+| `log2ram_journal_cleanup`       | `yes`          | Clean oldest systemd journals before re/start log2ram service.                          |
 
 ### `log2ram_size`
 
@@ -36,22 +34,22 @@ Example with multiple folders:
 
 ```yaml
 log2ram_path_disk:
-  - '/var/log'
-  - '/home/user/RamFolder'
+  - "/var/log"
+  - "/home/user/RamFolder"
 ```
 
 ### `log2ram_compression_algorithm`
 
 It's a chose compression algorithm listed in `/proc/crypto`. The fastest and lightest `lz4` or `zstd` (Zstandard) for better compression ratios, are the recommended choices.
 
-| Compressor name     | Ratio | Compression | Decompress. |
-|---------------------|-------|-------------|-------------|
-| `zstd` 1.4.5 -1     | 2.884 | 500 MB/s    | 1660 MB/s   |
-| `zlib` 1.2.11 -1    | 2.743 | 90 MB/s     | 400 MB/s    |
-| `brotli` 1.0.7 -0   | 2.703 | 400 MB/s    | 450 MB/s    |
-| `lzo`1x 2.10 -1     | 2.106 | 690 MB/s    | 830 MB/s    |
-| `lz4` 1.9.2         | 2.101 | 740 MB/s    | 4530 MB/s   |
-| `snappy` 1.1.8      | 2.073 | 560 MB/s    | 1790 MB/s   |
+| Compressor name   | Ratio | Compression | Decompress. |
+| ----------------- | ----- | ----------- | ----------- |
+| `zstd` 1.4.5 -1   | 2.884 | 500 MB/s    | 1660 MB/s   |
+| `zlib` 1.2.11 -1  | 2.743 | 90 MB/s     | 400 MB/s    |
+| `brotli` 1.0.7 -0 | 2.703 | 400 MB/s    | 450 MB/s    |
+| `lzo`1x 2.10 -1   | 2.106 | 690 MB/s    | 830 MB/s    |
+| `lz4` 1.9.2       | 2.101 | 740 MB/s    | 4530 MB/s   |
+| `snappy` 1.1.8    | 2.073 | 560 MB/s    | 1790 MB/s   |
 
 ### `log2ram_journal_cleanup`
 

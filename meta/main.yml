@@ -5,7 +5,7 @@ galaxy_info:
   author: Andrea Brandi
   description: Create mount points in RAM for log directories to decrease write cycles on removable drives.
   license: MIT
-  min_ansible_version: 2.9
+  min_ansible_version: 2.5
   platforms:
   - name: ArchLinux
     versions:

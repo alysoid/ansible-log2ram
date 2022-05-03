@@ -1,3 +1,4 @@
+---
 log2ram_size_int: "{{ (log2ram_size[:-1] | float * log2ram_compression_ratio | float ) | int }}"
 log2ram_size_suffix: "{{ log2ram_size[-1] }}"
 log2ram_log_disk_size: "{{ log2ram_size_int }}{{ log2ram_size_suffix }}"
@@ -11,3 +12,13 @@ compression_ratios:
   lzo: 2.1
   lz4: 2.1
   snappy: 2.0
+
+log2ram_systemd_services:
+  - log2ram.service
+  - log2ram-daily.service
+  - log2ram-daily.timer
+
+log2ram_system_files:
+  - /usr/local/bin/log2ram
+  - /etc/log2ram.conf
+  - /var/hdd.log

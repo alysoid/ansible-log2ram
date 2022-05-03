@@ -3,7 +3,19 @@
   ansible.builtin.command: journalctl --vacuum-size={{ ((log2ram_size[:-1] | float) * 0.95) | int }}{{ log2ram_size_suffix }}
   when: log2ram_journal_cleanup
 
+- name: Enable log2ram services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: yes
+  loop:
+    - log2ram.service
+    - log2ram-daily.timer
+
 - name: Restart log2ram service
   ansible.builtin.service:
-    name: log2ram
+    name: log2ram.service
     state: restarted
+
+- name: Reboot the system
+  ansible.builtin.reboot:
+    reboot_timeout: 300

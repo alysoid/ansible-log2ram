@@ -3,21 +3,25 @@
   ansible.builtin.stat:
     path: /usr/local/bin/log2ram
   register: log2ram_bin
-  tags: log2ram-uninstall
+  tags: log2ram_uninstall
 
-- ansible.builtin.include_tasks: uninstall.yml
-  when: log2ram_bin.stat.exists
-  tags: never, log2ram-uninstall
+- name: Uninstall log2ram
+  ansible.builtin.include_tasks: uninstall.yml
+  when: log2ram_bin.stat.exists and 'log2ram_uninstall' in ansible_run_tags
+  tags: log2ram_uninstall
 
-- ansible.builtin.include_tasks: install.yml
-  when: not log2ram_bin.stat.exists
+- block:
+    - name: Install log2ram
+      ansible.builtin.include_tasks: install.yml
+      when: not log2ram_bin.stat.exists
 
-- name: Generate configuration file
-  ansible.builtin.template:
-    src: log2ram.conf.j2
-    dest: /etc/log2ram.conf
-    owner: root
-    mode: "0644"
-  notify:
-    - Clean systemd journal
-    - Restart log2ram
+    - name: Generate log2ram configuration file
+      ansible.builtin.template:
+        src: log2ram.conf.j2
+        dest: /etc/log2ram.conf
+        owner: root
+        mode: "0644"
+      notify:
+        - Clean systemd journal
+        - Restart log2ram service
+  when: "'log2ram_uninstall' not in ansible_run_tags"
