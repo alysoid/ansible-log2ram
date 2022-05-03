@@ -2,9 +2,11 @@
 log2ram:
   # Version to install (GitHub tags)
   # https://github.com/azlux/log2ram/releases
-  version: "1.6.0"
+  version: "1.6.1"
   # Size the log folder will reserve into the RAM
   size: 40M
+  # When `true` use rsync for log syncing, when `false` use cp
+  rsync: true
   # Use system mail to get notified on errors
   mail: false
   # List of folders to put in RAM

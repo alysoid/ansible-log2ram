@@ -11,9 +11,11 @@
 log2ram:
   # Version to install (GitHub tags)
   # https://github.com/azlux/log2ram/releases
-  version: "1.6.0"
+  version: "1.6.1"
   # Size the log folder will reserve into the RAM
   size: 40M
+  # When `true` use rsync for log syncing, when `false` use cp
+  rsync: true
   # Use system mail to get notified on errors
   mail: false
   # List of folders to put in RAM
@@ -30,9 +32,13 @@ Defines the size of the log folder that will be reserved into the RAM. If it's n
 
 The available space can be increased setting the `log2ram.zram` variable to `true` and specifing a [`log2ram.compression`](#log2ram_compression_algorithm) algorithm to use.
 
+#### `log2ram.rsync`
+
+Select the log syncing method between the log directory on disk and in the RAM. When `true`, use `rsync`, instead use `cp`, that is also available for fallback when `rsync` is missing.
+
 #### `log2ram.mail`
 
-When `yes`, uses the system `mail` binary to notify the user about errors with available RAM space. Change it to `no` to only use a log when there's no more place on RAM.
+When `true`, uses the system `mail` binary to notify the user about errors with available RAM space. Change it to `false` to only use a log when there's no more place on RAM.
 
 #### `log2ram.path`
 
@@ -64,4 +70,4 @@ It's a chose compression algorithm listed in `/proc/crypto`. The fastest and lig
 
 ### `log2ram_journal_cleanup`
 
-When is `yes` executes the command: `journalctl --vacuum-size=` targeting the chosen `log2ram_size` - 5%. This reduces the `/var/log` folder size by removing the oldest systemd journals before re/start log2ram service. This should avoid most of the errors due to a too big existing folder.
+When is `true` executes the command: `journalctl --vacuum-size=` targeting the chosen `log2ram_size` - 5%. This reduces the `/var/log` folder size by removing the oldest systemd journals before re/start log2ram service. This should avoid most of the errors due to a too big existing folder.
