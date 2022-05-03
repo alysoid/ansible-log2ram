@@ -1,28 +1,32 @@
 ---
 - name: Download log2ram {{ log2ram_version }}
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/azlux/log2ram/archive/{{ log2ram_version }}.tar.gz"
     dest: /tmp/log2ram.tar.gz
-    mode: '0644'
+    mode: "0644"
 
 - name: Extract the archive
-  unarchive:
+  ansible.builtin.unarchive:
     remote_src: yes
     src: /tmp/log2ram.tar.gz
     dest: /tmp
 
 - name: Make installer executable
-  file:
+  ansible.builtin.file:
     dest: "/tmp/log2ram-{{ log2ram_version }}/install.sh"
     mode: u+x
 
 - name: Install log2ram {{ log2ram_version }}
-  command: sh install.sh
+  ansible.builtin.command: sh install.sh
   args:
     chdir: "/tmp/log2ram-{{ log2ram_version }}"
   changed_when: false
   notify: Restart log2ram
 
 - name: Reboot the machine
-  reboot:
+  ansible.builtin.reboot:
+    reboot_timeout: 300
+
+- name: Install latest log2ram script
+  ansible.builtin.reboot:
     reboot_timeout: 300

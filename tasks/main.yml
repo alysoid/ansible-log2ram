@@ -1,23 +1,23 @@
 ---
 - name: Check log2ram installation
-  stat:
+  ansible.builtin.stat:
     path: /usr/local/bin/log2ram
   register: log2ram_bin
   tags: log2ram-uninstall
 
-- include_tasks: uninstall.yml
+- ansible.builtin.include_tasks: uninstall.yml
   when: log2ram_bin.stat.exists
   tags: never, log2ram-uninstall
 
-- include_tasks: install.yml
+- ansible.builtin.include_tasks: install.yml
   when: not log2ram_bin.stat.exists
 
 - name: Generate configuration file
-  template:
+  ansible.builtin.template:
     src: log2ram.conf.j2
     dest: /etc/log2ram.conf
     owner: root
-    mode: '0644'
+    mode: "0644"
   notify:
     - Clean systemd journal
     - Restart log2ram

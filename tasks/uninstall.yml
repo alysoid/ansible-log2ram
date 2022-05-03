@@ -1,20 +1,20 @@
 ---
 - name: Remove log2ram service
-  service:
+  ansible.builtin.service:
     name: log2ram
     state: stopped
     enabled: no
   tags: log2ram-uninstall
 
 - name: Remove log2ram-daily timer
-  systemd:
+  ansible.builtin.systemd:
     name: log2ram-daily.timer
     state: stopped
     enabled: no
   tags: log2ram-uninstall
 
 - name: Remove files and directories
-  shell: |
+  ansible.builtin.shell: |
     rm -rf /etc/systemd/system/log2ram*
     rm /usr/local/bin/log2ram
     rm /etc/log2ram.conf
