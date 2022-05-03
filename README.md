@@ -4,27 +4,37 @@
 
 ## Role variables
 
-| Variable                        | Default        | Info                                                                                    |
-| ------------------------------- | -------------- | --------------------------------------------------------------------------------------- |
-| `log2ram_version`               | `1.6.0`        | Version to install (see: [GitHub releases](https://github.com/azlux/log2ram/releases)). |
-| `log2ram_size`                  | `40M`          | Size the log folder will reserve into the RAM.                                          |
-| `log2ram_send_mail`             | `false`        | Use system mail to get notified on errors.                                              |
-| `log2ram_path_disk`             | `["/var/log"]` | List of folders to put in RAM.                                                          |
-| `log2ram_zram_enabled`          | `false`        | Type of device to use. `true` for zram, `false` for default tmpfs.                      |
-| `log2ram_compression_algorithm` | `lz4`          | When zram is enabled, specify the compression algorithm to use.                         |
-| `log2ram_journal_cleanup`       | `false`        | Clean oldest systemd journals before re/start log2ram service.                          |
+### `log2ram`
 
-### `log2ram_size`
+```yaml
+# Defaults
+log2ram:
+  # Version to install (GitHub tags)
+  # https://github.com/azlux/log2ram/releases
+  version: "1.6.0"
+  # Size the log folder will reserve into the RAM
+  size: 40M
+  # Use system mail to get notified on errors
+  mail: false
+  # List of folders to put in RAM
+  path: ["/var/log"]
+  # When `true` use zram, when `false` use tmpfs
+  zram: true
+  # Compression algorithm when zram is enabled
+  compression: lz4
+```
+
+#### `log2ram.size`
 
 Defines the size of the log folder that will be reserved into the RAM. If it's not enough, log2ram will not be able to work correctly. Please check the size of `/var/log` folder before making decisions. The default is `40M` and it should be enough for a lot of applications. For a server with many log storage, it can be increased to `100M` or more.
 
-The available space can be increased setting the `log2ram_zram_enabled` variable to `true` and specifing a [`log2ram_compression_algorithm`](#log2ram_compression_algorithm) to use.
+The available space can be increased setting the `log2ram.zram` variable to `true` and specifing a [`log2ram.compression`](#log2ram_compression_algorithm) algorithm to use.
 
-### `log2ram_send_mail`
+#### `log2ram.mail`
 
 When `yes`, uses the system `mail` binary to notify the user about errors with available RAM space. Change it to `no` to only use a log when there's no more place on RAM.
 
-### `log2ram_path_disk`
+#### `log2ram.path`
 
 List of folders to store in RAM. Always specify an existing folder `/path/folder` without using the final `/`.
 
@@ -33,12 +43,13 @@ The `/path/hdd.folder` will be automatically created.
 Example with multiple folders:
 
 ```yaml
-log2ram_path_disk:
-  - "/var/log"
-  - "/home/user/RamFolder"
+log2ram:
+  path:
+    - "/var/log"
+    - "/home/user/ramfolder"
 ```
 
-### `log2ram_compression_algorithm`
+#### `log2ram.compression`
 
 It's a chose compression algorithm listed in `/proc/crypto`. The fastest and lightest `lz4` or `zstd` (Zstandard) for better compression ratios, are the recommended choices.
 

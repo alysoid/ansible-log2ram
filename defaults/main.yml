@@ -1,11 +1,18 @@
 ---
-log2ram_version: "1.6.0"
-log2ram_remote_source: "https://github.com/azlux/log2ram/raw/{{ log2ram_version }}"
+log2ram:
+  # Version to install (GitHub tags)
+  # https://github.com/azlux/log2ram/releases
+  version: "1.6.0"
+  # Size the log folder will reserve into the RAM
+  size: 40M
+  # Use system mail to get notified on errors
+  mail: false
+  # List of folders to put in RAM
+  path: ["/var/log"]
+  # When `true` use zram, when `false` use tmpfs
+  zram: true
+  # Compression algorithm when zram is enabled
+  compression: lz4
 
-log2ram_size: "40M"
-log2ram_send_mail: false
-log2ram_path_disk: ["/var/log"]
-log2ram_zram_enabled: false
-log2ram_compression_algorithm: "lz4"
-
+# Clean oldest systemd journals before re/start log2ram service
 log2ram_journal_cleanup: false

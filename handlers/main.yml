@@ -1,6 +1,6 @@
 ---
 - name: Clean systemd journal
-  ansible.builtin.command: journalctl --vacuum-size={{ ((log2ram_size[:-1] | float) * 0.95) | int }}{{ log2ram_size_suffix }}
+  ansible.builtin.command: journalctl --vacuum-size={{ log2ram_vacuum_size }}
   when: log2ram_journal_cleanup
 
 - name: Enable log2ram services

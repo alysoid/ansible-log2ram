@@ -1,11 +1,9 @@
 ---
-log2ram_size_int: "{{ (log2ram_size[:-1] | float * log2ram_compression_ratio | float ) | int }}"
-log2ram_size_suffix: "{{ log2ram_size[-1] }}"
-log2ram_log_disk_size: "{{ log2ram_size_int }}{{ log2ram_size_suffix }}"
+# Remote source to get required files
+log2ram_remote_source: "https://github.com/azlux/log2ram/raw/{{ log2ram.version }}"
 
-log2ram_compression_ratio: "{{ compression_ratios[log2ram_compression_algorithm] }}"
-
-compression_ratios:
+# Compression ratios for each compression algorithm available
+log2ram_compression_ratios:
   zstd: 2.9
   zlib: 2.7
   brotli: 2.7
@@ -13,11 +11,24 @@ compression_ratios:
   lz4: 2.1
   snappy: 2.0
 
+# Utils to generate `log2ram_log_disk_size` string
+log2ram_compression_ratio: "{{ log2ram_compression_ratios[log2ram.compression] }}"
+log2ram_size_int: "{{ (log2ram.size[:-1] | float * log2ram_compression_ratio | float ) | int }}"
+log2ram_size_suffix: "{{ log2ram.size[-1] }}"
+
+# String needed to set `LOG_DISK_SIZE` in log2ram configuration file
+log2ram_log_disk_size: "{{ log2ram_size_int }}{{ log2ram_size_suffix }}"
+
+# String needed by `Clean systemd journal` handler when `log2ram_journal_cleanup` is true
+log2ram_vacuum_size: "{{ ((log2ram.size[:-1] | float) * 0.95) | int }}{{ log2ram_size_suffix }}"
+
+# List of log2ram systemd units
 log2ram_systemd_services:
   - log2ram.service
   - log2ram-daily.service
   - log2ram-daily.timer
 
+# List of log2ram files and folders
 log2ram_system_files:
   - /usr/local/bin/log2ram
   - /etc/log2ram.conf
